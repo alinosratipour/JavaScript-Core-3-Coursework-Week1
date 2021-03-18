@@ -1,4 +1,4 @@
-let library = [];
+let myLibrary = [];
 
 window.addEventListener("load", function (e) {
   populateStorage();
@@ -6,7 +6,7 @@ window.addEventListener("load", function (e) {
 });
 
 function populateStorage() {
-  if (library.length == 0) {
+  if (myLibrary.length == 0) {
     let book1 = new Book("Robison Crusoe", "Daniel Defoe", "252", true);
     let book2 = new Book(
       "The Old Man and the Sea",
@@ -14,8 +14,8 @@ function populateStorage() {
       "127",
       true
     );
-    library.push(book1);
-    library.push(book2);
+    myLibrary.push(book1);
+    myLibrary.push(book2);
     render();
   }
 }
@@ -40,7 +40,7 @@ function submit() {
     return false;
   } else {
     let book = new Book(title.value, author.value, pages.value, check.checked);
-    library.push(book);
+    myLibrary.push(book);
     render();
   }
 }
@@ -60,7 +60,7 @@ function render() {
     table.deleteRow(n);
   }
   //insert updated row and cells
-  let length = library.length;
+  let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
     let row = table.insertRow(1);
     let cell1 = row.insertCell(0);
@@ -68,9 +68,9 @@ function render() {
     let cell3 = row.insertCell(2);
     let cell4 = row.insertCell(3);
     let cell5 = row.insertCell(4);
-    cell1.innerHTML = library[i].title;
-    cell2.innerHTML = library[i].author;
-    cell3.innerHTML = library[i].pages;
+    cell1.innerHTML = myLibrary[i].title;
+    cell2.innerHTML = myLibrary[i].author;
+    cell3.innerHTML = myLibrary[i].pages;
 
     //add and wait for action for read/unread button
     let changeBut = document.createElement("button");
@@ -78,7 +78,7 @@ function render() {
     changeBut.className = "btn btn-success";
     cell4.appendChild(changeBut);
     let readStatus = "";
-    if (library[i].check == false) {
+    if (myLibrary[i].check == false) {
       readStatus = "No";
     } else {
       readStatus = "Yes";
@@ -86,7 +86,7 @@ function render() {
     changeBut.innerHTML = readStatus;
 
     changeBut.addEventListener("click", function () {
-      library[i].check = !library[i].check;
+      myLibrary[i].check = !myLibrary[i].check;
       render();
     });
 
@@ -97,8 +97,8 @@ function render() {
     delBut.className = "btn btn-warning";
     delBut.innerHTML = "Delete";
     delBut.addEventListener("click", function () {
-      alert(`You've deleted title: ${library[i].title}`);
-      library.splice(i, 1);
+      alert(`You've deleted title: ${myLibrary[i].title}`);
+      myLibrary.splice(i, 1);
       render();
     });
   }
@@ -107,7 +107,7 @@ function render() {
 //********************BUG FIXED**************************** */
 
 // 1. Delete event fixed. changed clicks to click line 97.
-// 2. myLibrary changed to library
+// 2. library changed to myLibrary
 // 3. line 40 author.value was added to fix the bug
 // 4 line 80 and 82 readStatus changed to correct order
 // 5. missed author field validation on line 36 and 37
